@@ -23,14 +23,7 @@ const userSchema = mongoose.Schema({
     password:{
         required: true,
         type: String,
-        validate:{
-            validator: (value) => {
-                return value.length > 8;
-
-            },
-            message: 'please enter a long password',
         },
-    },
     address:{
         type: String,
         default:'',
