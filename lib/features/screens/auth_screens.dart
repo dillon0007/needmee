@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:needme/common/widgets/custom_button.dart';
 import 'package:needme/common/widgets/custom_textfield.dart';
 import 'package:needme/constants/global_variables.dart';
+import 'package:needme/features/services/auth_services.dart';
 
 enum Auth {
   signin,
@@ -9,7 +10,7 @@ enum Auth {
 }
 
 class Authscreen extends StatefulWidget {
-  static const String routName = 'auth/screen';
+  static const String routeName = 'auth/screen';
   const Authscreen({Key? key}) : super(key: key);
 
   @override
@@ -20,14 +21,23 @@ class _AuthscreenState extends State<Authscreen> {
   Auth _auth = Auth.singup;
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _NameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   @override
   void dispose() {
     _emailController.dispose();
-    _NameController.dispose();
+    _nameController.dispose();
     _passwordController.dispose();
+  }
+
+  void signUpUser() {
+    authService.signUpUser(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text,
+        name: _nameController.text);
   }
 
   Widget build(BuildContext context) {
@@ -71,7 +81,7 @@ class _AuthscreenState extends State<Authscreen> {
                     child: Column(
                       children: [
                         CustomTextField(
-                          controller: _emailController,
+                          controller: _nameController,
                           hintText: "Name",
                         ),
                         const SizedBox(height: 10),
@@ -81,11 +91,17 @@ class _AuthscreenState extends State<Authscreen> {
                         ),
                         const SizedBox(height: 10),
                         CustomTextField(
-                          controller: _emailController,
+                          controller: _passwordController,
                           hintText: "Password",
                         ),
                         const SizedBox(height: 10),
-                        CustomButton(text: "Sign Up", onTap: () {})
+                        CustomButton(
+                            text: "Sign Up",
+                            onTap: () {
+                              if (_signUpFormKey.currentState!.validate()) {
+                                signUpUser();
+                              }
+                            })
                       ],
                     ),
                   ),
@@ -114,7 +130,7 @@ class _AuthscreenState extends State<Authscreen> {
                   padding: const EdgeInsets.all(8),
                   color: Globalvariables.backgroundColor,
                   child: Form(
-                    key: _signUpFormKey,
+                    key: _signInFormKey,
                     child: Column(
                       children: [
                         // const SizedBox(height: 10),
@@ -124,7 +140,7 @@ class _AuthscreenState extends State<Authscreen> {
                         ),
                         const SizedBox(height: 10),
                         CustomTextField(
-                          controller: _emailController,
+                          controller: _passwordController,
                           hintText: "Password",
                         ),
                         const SizedBox(height: 10),

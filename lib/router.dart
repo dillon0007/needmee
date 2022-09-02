@@ -3,7 +3,7 @@ import 'package:needme/features/screens/auth_screens.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
-    case Authscreen.routName:
+    case Authscreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const Authscreen(),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'custom_textfield.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -10,8 +9,10 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      child: Text(
+        text,
+      ),
       onPressed: onTap,
-      child: Text(""),
       style: ElevatedButton.styleFrom(
           minimumSize: const Size(double.infinity, 50)),
     );
