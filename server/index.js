@@ -8,8 +8,7 @@ const authRouter = require("./routes/auth");
 //INIT
 const PORT = 3000;
 const app = express();
-const DB = "mongodb+srv://Draton:Draton2002@cluster0.nw4pkkw.mongodb.net/?retryWrites=true&w=majority"
-
+const DB = "mongodb+srv://galaxy:<password>@cluster2.qn2j3zk.mongodb.net/?retryWrites=true&w=majority"
 //middleware
 app.use(express.json());
 app.use(authRouter);

@@ -1,8 +1,8 @@
 const express = require("express");
 const User = require("../models/user");
 const bcryptjs = require("bcryptjs");
-const auth = require("../middlewares/auth");
-
+// const auth = require("../middlewares/auth");
+const e = require("express");
 const authRouter = express.Router();
 
 authRouter.post('/api/signup', async(req,res) =>{
@@ -21,14 +21,10 @@ authRouter.post('/api/signup', async(req,res) =>{
         password: hashedpassword,
         name,
 
-    })
+    });
 
     user = await user.save();
     res.json(user);
-
-    //200
-
-    //post that data in database
 
 } catch(e){
     res.status(500).json({error: e.message});
@@ -37,7 +33,27 @@ authRouter.post('/api/signup', async(req,res) =>{
 });
 
     //get the data from the client
-    
+
+authRouter.post('/api/signin',async (req, res) =>{
+    try{
+        const {email, password} = req.body;
+
+        const user = await User.findOne({email:e.message});
+        if(!user){
+            return res.status(400).json({msg:"User with this email does not exist"});
+        }
+
+        const isMatch = bcryptjs.compare(password, user.password);
+        if(!isMatch){
+            return res.status(400).json({msg:"Incorrect password."});
+
+
+        }
+
+    } catch(e){
+        res.status(500).json({error : e.message});
+    }
+})
 
 
 

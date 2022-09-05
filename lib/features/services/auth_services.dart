@@ -35,7 +35,7 @@ class AuthService {
           onSuccess: () {
             showSnackBar(
               context,
-              'Account created!! We need to login with the same credentials',
+              'Account created!! ',
             );
           });
     } catch (e) {
